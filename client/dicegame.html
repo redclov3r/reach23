@@ -1,0 +1,109 @@
+<head>
+    <title>Reach23</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Acme' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34285312-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+
+     </script>
+</head>
+
+<body>
+    <h1>Reach23!</h1>
+    <h2 class="subtitle"> - a dice game</h2>
+    <div id="main" class="cf">
+        {{> lobby}}
+        {{> scoreboard}}
+        {{> gamearea}}
+    </div>
+    <footer>An experiment by Philipp Kreutzer &copy; 2012 | made with meteor </footer>
+</body>
+
+<template name="lobby">
+    {{#if show}}    
+    <div id="lobby">
+        <h2>Lobby</h2>
+        {{#if count}}
+        <div id="others"{{#if player_name}} class="active"{{/if}}>
+            <h3>
+                There are {{count}} other players.<br /> 
+                {{#if player_name}}
+                Choose an opponent...
+                {{else}}
+                But first reveal your name...
+                {{/if}}
+            </h3>
+            <ul>
+            {{#each waiting}}
+            <li>{{name}}</li>
+            {{/each}}
+            </ul>
+        </div>
+        {{else}}
+        <div id="others">
+            <h3>Hello, lonely stranger. Maybe you want to invite somone
+            to play with...</h3>
+        </div>
+        {{/if}}
+        {{#if player_name}}
+        <h3>Welcome <em>{{player_name}}</em>!</h3>
+        {{else}}
+        <h3>Enter your name</h3>
+        {{/if}}
+        <input id="playername" type="text" />
+    </div>
+    {{/if}}
+</template>
+
+<template name="scoreboard">
+    {{#if show}}    
+    <div id="scoreboard">
+        <h2>Scores</h2>
+        {{#each players}}
+        <div class="score cf">
+            <span class="name">{{name}}</span>
+            <span class="points">{{points}}</span>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</template>
+
+<template name="gamearea">
+    {{#if show}}    
+    <div id="gamearea" {{#if is_active}} class="active"{{/if}}>
+        {{#if is_active}}
+        <h2>Hey {{ active_player }}. It's your turn</h2>
+        {{ else }}
+        <h2>It is {{ active_player }}'s turn</h2>
+        {{/if}}
+        <div id="dice">
+            {{dice}}
+        </div>
+        <div id="sum">
+            Total: {{sum}}
+        </div>
+        {{#if is_active}}
+        <p id="actions">
+            <a href="#" id="roll" class="button">Roll!</a>
+            <a href="#" id="save" class="button">Save</a>
+        </p>
+        {{/if}}
+    </div>
+        {{#if result}}    
+        <div id="result">
+            {{{result}}}
+        </div>
+        {{/if}}
+    {{/if}}
+</template>
