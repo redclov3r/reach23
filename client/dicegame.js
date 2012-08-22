@@ -99,7 +99,7 @@ Template.gamearea.is_active = function () {
 }
 
 Template.gamearea.dice = function () {
-    return game().dice || "Roll me!";
+    return game().dice || "Roll me!";
 }
 
 Template.gamearea.sum = function () {

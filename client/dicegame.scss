@@ -72,6 +72,18 @@ h2 {
     }
 }
 
+a, a:visited, a:active {
+    color: #6d292d;
+
+    &:hover {
+        color: white;
+        background: #6d292d;
+        border-radius: 2px;
+
+        text-shadow: none;
+    }
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -257,7 +269,7 @@ select,
     background: -moz-linear-gradient(top, #444, #333);
     background: linear-gradient(top, #444, #333);
 
-    padding: 1em;
+    padding: 0.5em;
     font-size: 6em;
     text-align: center;
 }
