@@ -20,6 +20,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color: #e5e5e5;
   padding: 2em;
+  margin: 0;
   padding-bottom: 4em;
   position: relative; }
 
@@ -93,7 +94,7 @@ select {
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
 
-.button, #others.active li:hover {
+a.button, #others.active li:hover {
   cursor: pointer;
   padding: 0.4em 1em;
   text-decoration: none;
@@ -106,14 +107,14 @@ select {
   font-size: 1em;
   color: #fff;
   text-shadow: 1px 1px 2px black; }
-  .button:hover, #others.active li:hover {
+  a.button:hover, #others.active li:hover {
     color: #333;
     text-shadow: 1px 1px 1px white;
     background: -webkit-linear-gradient(white, #aaaaaa);
     background: -moz-linear-gradient(white, #aaaaaa);
     background: linear-gradient(white, #aaaaaa);
     box-shadow: 0px 1px 3px black; }
-  .button:active, #others.active li:active:hover {
+  a.button:active, #others.active li:active:hover {
     position: relative;
     top: 1px;
     text-shadow: 1px 1px 1px white;
@@ -123,10 +124,14 @@ select {
     background: linear-gradient(#dddddd, #999999);
     box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4), inset 0px 2px 6px black; }
 
+#nameinput {
+  float: left;
+  width: 50%; }
+
 #others {
-  float: right;
+  float: left;
   width: 40%;
-  margin-left: 10%;
+  margin-right: 10%;
   opacity: 0.8; }
   #others h3:first-child {
     margin-top: 0; }
@@ -182,6 +187,14 @@ select {
   float: left;
   margin-right: 1em;
   margin-bottom: 1em; }
+  #dice.red {
+    background: #b0043a;
+    background: -webkit-linear-gradient(#7e032a, #b0043a);
+    background: -moz-linear-gradient(#7e032a, #b0043a);
+    background: linear-gradient(#7e032a, #b0043a);
+    color: white;
+    text-shadow: 0px -1px 2px black;
+    border: solid 4px #970332; }
 
 #sum {
   font-size: 3em; }

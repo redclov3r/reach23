@@ -51,19 +51,42 @@
             <li>{{name}}</li>
             {{/each}}
             </ul>
+            {{#if player_name}}
+            <p>If you don't like any of the above, you can also open another browser to
+            play against yourself. There is also the option to</p>
+            <p><a id="start-single-player" class="button">Start a single player game</a></p>
+            <p>
+                Caution: Single player games are really boring
+            </p>
+            {{/if}}
         </div>
         {{else}}
         <div id="others">
-            <h3>Hello, lonely stranger. Maybe you want to invite somone
-            to play with...</h3>
+        {{#if player_name}}
+            <h3>
+                Hello, lonely <em>{{player_name}}</em>. 
+                Maybe you want to invite somone
+                to play with...
+            </h3>
+            <p>You can also open another browser to
+            play against yourself. There is also the option to</p>
+            <p>
+                <a id="start-single-player" class="button">Start a single player game</a>
+            </p>
+            <p>
+                Caution: Single player games are really boring
+            </p>
+        {{else}}
+            <h3>
+                Hello, lonely stranger. First of all, tell me your
+                name...
+            </h3>
+        {{/if}}
         </div>
         {{/if}}
-        {{#if player_name}}
-        <h3>Welcome <em>{{player_name}}</em>!</h3>
-        {{else}}
-        <h3>Enter your name</h3>
-        {{/if}}
-        <input id="playername" type="text" />
+        <div id="nameinput">
+            <input id="playername" type="text" placeholder="Enter your name..."/>
+        </div>
     </div>
     {{/if}}
 </template>
@@ -90,7 +113,7 @@
         {{ else }}
         <h2>It is {{ active_player }}'s turn</h2>
         {{/if}}
-        <div id="dice">
+        <div id="dice" class="{{diceclass}}">
             {{dice}}
         </div>
         <div id="sum">

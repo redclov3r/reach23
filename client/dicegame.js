@@ -50,6 +50,21 @@ Template.lobby.events = {
         var name = $('#lobby input#playername').val().trim();
         Players.update(Session.get('player_id'), {$set: {name: name}});
     },
+    'click #start-single-player': function(event) {
+        var me = player();
+        if(me && me.name != '') {
+            console.log('Starting single player game');
+            var player1 = Session.get('player_id');
+            Meteor.call('start_new_singleplayer_game', player1);
+
+            Meteor.autosubscribe(function() {
+                var me = player();
+                if (me && me.game_id) {
+                    Meteor.subscribe('games', me.game_id);
+                };
+            });
+        }
+    },
     'click #others li': function(event) {
         var me = player();
         if(me && me.name != '') {
@@ -102,6 +117,14 @@ Template.gamearea.dice = function () {
     return game().dice || "Roll me!";
 }
 
+Template.gamearea.diceclass = function () {
+    if (game().dice == 6) {
+        return "red";
+    } else {
+        return "";
+    };
+}
+
 Template.gamearea.sum = function () {
     return game().sum;
 }
@@ -119,7 +142,7 @@ Template.gamearea.result = function() {
 }
 
 Template.gamearea.events = {
-    'click #roll': function(e) {
+    'click #roll, click #dice': function(e) {
         e.preventDefault();
         if (player()._id == active_player()._id) {
             Meteor.call('roll', game()._id, player()._id);
