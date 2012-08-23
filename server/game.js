@@ -1,5 +1,17 @@
 var WINNING = 23;
 Meteor.methods({
+    start_new_singleplayer_game: function (player_1) {
+        var game_id = Games.insert({dice: 0, sum: 0});
+
+        Players.update(
+            {game_id: null, name: {$ne: ''}, _id: player_1},
+            {$set: {game_id: game_id, points: 0}},
+            {multi: true}
+            );
+        var p = Players.find({game_id: game_id}, {fields: {_id: true, name: true}}).fetch();
+        Games.update({_id: game_id}, {$set: {players: p, active_player: 0}});
+    },
+
     start_new_game: function (player_1, player_2) {
         var game_id = Games.insert({dice: 0, sum: 0});
 
@@ -17,8 +29,11 @@ Meteor.methods({
 
         if (game.players[game.active_player]._id === player_id) {
             var roll = Math.ceil(Math.random() * 6);
-            if (roll < 6 && (Players.findOne(player_id).points + game.sum + roll) <= WINNING) {
+            if (roll < 6 && (Players.findOne(player_id).points + game.sum + roll) < WINNING) {
                 var sum = game.sum + roll;
+            } else if(roll < 6 && (Players.findOne(player_id).points + game.sum + roll) == WINNING) {
+                // Player wins!
+                Games.update(game_id, {$set: {'winner': player_id}})
             } else {
                 var sum = 0;
                 Meteor.call('next_player', game_id);
